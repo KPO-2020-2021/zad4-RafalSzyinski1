@@ -3,6 +3,8 @@
 
 #include <vector>
 #include <stdexcept>
+#include "gplot++.h"
+#include "MatrixAction.h"
 
 class Rectangular
 {
@@ -23,12 +25,21 @@ private:
         }
     };
 
+private:
     std::vector<Wall> walls;
+    std::vector<double> x;
+    std::vector<double> y;
+    std::vector<double> z;
+    std::vector<double> startPoint;
+
+    friend void drawRectangular(const Rectangular& rec);
 public:
     Rectangular() = delete;
-    Rectangular(const std::vector<double>& x, const std::vector<double>& y, const std::vector<double>& z, std::vector<double> _startPoint = std::vector<double>());
+    Rectangular(std::vector<double>  _x, std::vector<double>  _y, std::vector<double>  _z, std::vector<double> _startPoint = std::vector<double>());
 
-    void drawPlot() const;
+    Rectangular operator*(const matrix<double>& mat);
+
+    void drawPlot();
 };
 
 

@@ -43,6 +43,9 @@ namespace VectorAction
     std::vector<T> operator-(const std::vector<T>& vec1, const std::vector<T>& vec2);
 
     template<typename T>
+    std::vector<T> operator-(const std::vector<T>& vec);
+
+    template<typename T>
     double abs(const std::vector<T>& vec);
 
     template<typename T>
@@ -126,6 +129,15 @@ std::ostream& VectorAction::operator<<(std::ostream& os, const std::vector<T>& v
     }
     os.setf(old_flags);
     return os;
+}
+
+template<typename T>
+std::vector<T> VectorAction::operator-(const std::vector<T>& vec)
+{
+    std::vector<T> ret;
+    for (auto& i : vec)
+        ret.push_back(-i);
+    return ret;
 }
 
 

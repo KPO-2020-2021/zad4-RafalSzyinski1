@@ -48,6 +48,12 @@ TEST (VectorActionTest, diff)
     EXPECT_THROW(a - c, std::out_of_range);
 }
 
+TEST (VectorActionTest, negation)
+{
+    std::vector<double> a{1, 2, 3};
+    EXPECT_EQ(-a, std::vector<double>({-1, -2, -3}));
+}
+
 TEST (VectorActionTest, abs)
 {
     std::vector<double> a{3, 4};
