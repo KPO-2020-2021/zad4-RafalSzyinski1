@@ -13,6 +13,9 @@ class GNUPlot
 private:
     Gnuplot plt;
     std::vector<std::string> objects;
+
+    std::string surfaceFormula;
+    std::string surfaceColor;
 public:
     GNUPlot();
 

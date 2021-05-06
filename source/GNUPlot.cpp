@@ -2,7 +2,7 @@
 
 #include "VectorAction.h"
 
-GNUPlot::GNUPlot() : plt(), objects()
+GNUPlot::GNUPlot() : plt(), objects(), surfaceColor("#FF00FF"), surfaceFormula("0")
 {
 }
 
@@ -48,7 +48,7 @@ void GNUPlot::draw()
 
     for (auto& i : objects)
         plt.sendcommand(i);
-    plt.sendcommand("splot 0 linecolor \"#FFFF0000\" ");
+    plt.sendcommand("splot " + surfaceFormula +  " linecolor \"" + surfaceColor + "\" ");
     objects.clear();
 }
 

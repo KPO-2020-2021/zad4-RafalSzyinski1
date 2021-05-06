@@ -22,7 +22,7 @@ bool operator==(const Rectangular& rec1, const Rectangular& rec2)
 Rectangular Rectangular::operator*(const matrix<double>& mat) const
 {
     using namespace MatrixAction;
-    Rectangular ret(mat * x, mat * y, mat * z, startPoint);
+    Rectangular ret(mat * x, mat * y, mat * z, mat * startPoint);
     return ret;
 }
 
