@@ -1,9 +1,10 @@
-cmake_minimum_required(VERSION 3.17)
+cmake_minimum_required(VERSION 3.16)
 project(Rotation)
 
 set(EXECUTABLE ${CMAKE_PROJECT_NAME}_run)
 
 set(CMAKE_CXX_STANDARD 14)
+
 include_directories(${PROJECT_SOURCE_DIR}/include)
 include_directories(${PROJECT_SOURCE_DIR}/lib/gplotpp)
 
