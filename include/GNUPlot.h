@@ -1,3 +1,8 @@
+/**
+ * @file GNUPlot.h
+ * Class to help drawing from gplot++.cpp
+ */
+
 #ifndef ROTATION_GNUPLOT_H
 #define ROTATION_GNUPLOT_H
 
@@ -17,6 +22,7 @@ private:
     std::string surfaceFormula;
     std::string surfaceColor;
 public:
+
     GNUPlot();
 
     void addWall(const std::vector<double>& a, const std::vector<double>& b, const std::vector<double>& startPoint);

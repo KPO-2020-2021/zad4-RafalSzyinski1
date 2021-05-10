@@ -1,38 +1,69 @@
-//
-// Created by rafik on 22.04.2021.
-//
+/**
+ * @file MatrixAction.h
+ * Overload operators for matrix
+ */
 
 #ifndef ROTATION_MATRIXACTION_H
 #define ROTATION_MATRIXACTION_H
 
 #include "VectorAction.h"
 
+/// Matrix: two-dimensional vector
 template<typename T>
 using matrix = std::vector< std::vector<T> >;
 
 namespace MatrixAction
 {
+    /**
+     * Sum operator of 2 matrix. \n
+     * Using operator+ from VectorAction.h.
+     * @throw std::out_of_range mat1.size() != mat2.size()
+     */
     template<typename T>
     matrix<T> operator+(const matrix<T>& mat1, const matrix<T>& mat2);
 
-    template<typename T>
-    matrix<T> operator*(const matrix<T>& mat, double sc);
-
-    template<typename T>
-    matrix<T> operator*(double sc, const matrix<T>& mat);
-
+    /**
+     * Difference operator of 2 matrix. \n
+     * Using operator- from VectorAction.h.
+     * @throw std::out_of_range mat1.size() != mat2.size()
+     */
     template<typename T>
     matrix<T> operator-(const matrix<T>& mat1, const matrix<T>& mat2);
 
+    /**
+     * Multiplication matrix by a scalar.
+     */
+    template<typename T>
+    matrix<T> operator*(const matrix<T>& mat, double sc);
+
+    /**
+     * Multiplication matrix by a vector. \n
+     * Using operator* from VectorAction.h.
+     * @throw std::out_of_range mat.at(i).size() != vec.size()
+     */
     template<typename T>
     std::vector<T> operator*(const matrix<T>& mat, const std::vector<T>& vec);
 
+    /**
+    * Multiplication vector by a matrix.
+    * Using operator* from VectorAction.h.
+    * @throw std::out_of_range mat.size() != vec.size()
+    */
     template<typename T>
     std::vector<T> operator*(const std::vector<T>& vec, const matrix<T>& mat);
 
+    /**
+     * Multiplication matrix by a matrix.
+     * Using operator* from VectorAction.h.
+     * @throw std::out_of_range mat1.at(i) != mat2.size()
+     * @throw std::out_of_range mat1.size() != mat2.at(j).size()
+     */
     template<typename T>
     matrix<T> operator*(const matrix<T>& mat1, const matrix<T>& mat2);
 
+    /**
+     * Out stream operator to write on std::out and to file
+     */
     template<typename T>
     std::ostream& operator<<(std::ostream& os, const matrix<T>& mat);
 }   //MartixAction
@@ -80,12 +111,6 @@ matrix<T> MatrixAction::operator*(const matrix<T>& mat, double sc)
     }
 
     return ret;
-}
-
-template<typename T>
-matrix<T> MatrixAction::operator*(double sc, const matrix<T>& mat)
-{
-    return mat * sc;
 }
 
 template<typename T>

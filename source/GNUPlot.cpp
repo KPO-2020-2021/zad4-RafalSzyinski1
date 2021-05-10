@@ -1,11 +1,26 @@
+/**
+ * @file GNUPlot.cpp
+ * Definition of GNUPlot class
+ */
+
 #include "GNUPlot.h"
 
 #include "VectorAction.h"
 
+/**
+ * Default constructor
+ */
 GNUPlot::GNUPlot() : plt(), objects(), surfaceColor("#FF00FF"), surfaceFormula("0")
 {
 }
 
+/**
+ * Make and save object wall made from 2 vectors and starting point. \n
+ * Using VectorAction.h.
+ * @param a first side of the wall
+ * @param b second side of the wall
+ * @param startPoint point where vectors start
+ */
 void GNUPlot::addWall(const std::vector<double>& a, const std::vector<double>& b, const std::vector<double>& startPoint)
 {
     using namespace VectorAction;
@@ -26,6 +41,10 @@ void GNUPlot::addWall(const std::vector<double>& a, const std::vector<double>& b
     objects.push_back(ss.str());
 }
 
+/**
+ * Adding rectangular to space. \n
+ * Using addWall method and VectorAction.h
+ */
 void GNUPlot::addRectangular(const Rectangular& rec)
 {
     using namespace VectorAction;
@@ -38,6 +57,10 @@ void GNUPlot::addRectangular(const Rectangular& rec)
     addWall(-rec.Y(), -rec.Z(), newPoint);
 }
 
+/**
+ * Setup the space and drawing all object. \n
+ * At end delete all object.
+ */
 void GNUPlot::draw()
 {
     plt.sendcommand("set ticslevel 0");

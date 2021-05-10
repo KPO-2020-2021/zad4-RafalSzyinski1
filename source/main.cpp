@@ -1,3 +1,8 @@
+/**
+ *@file main.cpp
+ *autor:**Rafał Szyiński**
+ *
+ */
 #include "Rectangular.h"
 #include "GNUPlot.h"
 
@@ -10,6 +15,7 @@ using namespace MatrixAction;
 
 int main()
 {
+
     double temp = 0;
     std::vector<double> x;
     std::vector<double> y;
@@ -54,6 +60,9 @@ int main()
     int repeats = 1;
     const double a = M_PI/180;
 
+    Rectangular additionalRec1({.1, 0, 0}, {0, .1, 0}, {0, 0, .1}, {1.5, 0, 0});
+    Rectangular additionalRec2({.3, 0, 0}, {0, .2, 0}, {0, 0, .7}, {-1.5, 1.5, 0});
+    Rectangular additionalRec3({.2, 0, 0}, {0, .5, 0}, {0, 0, .2}, {1, -1.2, 0});
     while (option != '7')
     {
         std::cout << "Menu" << std::endl;
@@ -70,21 +79,62 @@ int main()
         {
             case '1':
                 std::cout << "Rotation matrix initialization" << std::endl;
-                std::cout << "Enter x angle: ";
-                if (!(std::cin >> xAngle))
-                    throw std::invalid_argument("Something wrong");
-                std::cout << "Enter y angle: ";
-                if (!(std::cin >> yAngle))
-                    throw std::invalid_argument("Something wrong");
-                std::cout << "Enter z angle: ";
-                if (!(std::cin >> zAngle))
-                    throw std::invalid_argument("Something wrong");
-                xAngle = xAngle % 360;
-                yAngle = yAngle % 360;
-                zAngle = zAngle % 360;
-                mat = matrix<double>({{std::cos(a * zAngle), -std::sin(a * zAngle), 0}, {std::sin(a * zAngle), std::cos(a * zAngle), 0}, {0, 0, 1}})
-                        * matrix<double>({{std::cos(a * yAngle), 0, std::sin(a * yAngle)}, {0, 1, 0}, {-std::sin(a * yAngle), 0, std::cos(a * yAngle)}})
-                        * matrix<double>({{1, 0, 0}, {0, std::cos(a * xAngle), -std::sin(a * xAngle)}, {0, std::sin(a * xAngle), std::cos(a * xAngle)}});
+                for (int i = 0; i < 3; ++i)
+                {
+                    std::cout << "Enter axis: ";
+                    if (!(std::cin >> option))
+                        throw std::invalid_argument("Something wrong");
+
+                    switch (option)
+                    {
+                        case 'x':
+                            if (xAngle == 0)
+                            {
+                                std::cout << "Enter x angle: ";
+                                if (!(std::cin >> xAngle))
+                                    throw std::invalid_argument("Something wrong");
+                                mat = mat * matrix<double>({{1, 0, 0}, {0, std::cos(a * xAngle), -std::sin(a * xAngle)}, {0, std::sin(a * xAngle), std::cos(a * xAngle)}});
+                            }
+                            else
+                            {
+                                std::cerr << "X value is already in" << std::endl;
+                                --i;
+                            }
+                            break;
+                        case 'y':
+                            if (yAngle == 0)
+                            {
+                                std::cout << "Enter y angle: ";
+                                if (!(std::cin >> yAngle))
+                                    throw std::invalid_argument("Something wrong");
+                                mat = mat * matrix<double>({{std::cos(a * yAngle), 0, std::sin(a * yAngle)}, {0, 1, 0}, {-std::sin(a * yAngle), 0, std::cos(a * yAngle)}});
+                            }
+                            else
+                            {
+                                std::cerr << "Y value is already in" << std::endl;
+                                --i;
+                            }
+                            break;
+                        case 'z':
+                            if (zAngle == 0)
+                            {
+                                std::cout << "Enter z angle: ";
+                                if (!(std::cin >> zAngle))
+                                    throw std::invalid_argument("Something wrong");
+                                mat = mat * matrix<double>({{std::cos(a * zAngle), -std::sin(a * zAngle), 0}, {std::sin(a * zAngle), std::cos(a * zAngle), 0}, {0, 0, 1}});
+                            }
+                            else
+                            {
+                                std::cerr << "Z value is already in" << std::endl;
+                                --i;
+                            }
+                            break;
+                        default:
+                            std::cerr << "Not such option" << std::endl;
+                            --i;
+                            break;
+                    }
+                }
                 break;
             case '2':
                 std::cout << "Rotation matrix" << std::endl;
@@ -116,12 +166,20 @@ int main()
                 std::cout << "Animation" << std::endl;
                 for (int i = 0; i < (repeats + 1); ++i)
                 {
+
                     plt.addRectangular(rec);
+                    plt.addRectangular(additionalRec1);
+                    plt.addRectangular(additionalRec2);
+                    plt.addRectangular(additionalRec3);
                     plt.draw();
                     rec = rec * mat;
                     rec = rec + vec;
-                    std::this_thread::sleep_for(std::chrono::milliseconds(250));
-                    std::cout << rec.StartPoint() << std::endl;
+
+                    additionalRec1 = additionalRec1 * matrix<double>({{1, 0, 0}, {0, std::cos(a), -std::sin(a)}, {0, std::sin(a), std::cos(a)}});
+                    additionalRec2 = additionalRec2 * matrix<double>({{std::cos(a), 0, std::sin(a)}, {0, 1, 0}, {-std::sin(a), 0, std::cos(a)}});
+                    additionalRec3 = additionalRec3 * matrix<double>({{std::cos(a), -std::sin(a), 0}, {std::sin(a), std::cos(a), 0}, {0, 0, 1}});
+
+                    std::this_thread::sleep_for(std::chrono::milliseconds(125));
                 }
                 mat = {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
                 vec = {0, 0, 0};

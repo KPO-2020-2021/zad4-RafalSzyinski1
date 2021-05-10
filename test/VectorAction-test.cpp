@@ -14,7 +14,6 @@ TEST (VectorActionTest, multiScalar)
     double a = 3;
     std::vector<double> b{1, 2, 3, 4};
 
-    EXPECT_EQ(a * b, std::vector<double>({3, 6, 9, 12}));
     EXPECT_EQ(b * a, std::vector<double>({3, 6, 9, 12}));
 }
 

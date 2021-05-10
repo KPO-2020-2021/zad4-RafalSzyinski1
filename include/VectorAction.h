@@ -1,7 +1,7 @@
-//
-// Created by rafik on 21.04.2021.
-//
-
+/**
+ * @file VectorAction.h
+ * Overload operators for std::vector
+ */
 #ifndef ROTATION2D_VECTORACTION_H
 #define ROTATION2D_VECTORACTION_H
 
@@ -11,6 +11,10 @@
 #include <iomanip>
 #include <cmath>
 
+/**
+ * Function comparing to 10 decimal places each value of vectors
+ * @return True if values in vectors are close to equal
+ */
 template<typename T>
 bool operator==(const std::vector<T>& vec1, const std::vector<T>& vec2)
 {
@@ -26,28 +30,48 @@ bool operator==(const std::vector<T>& vec1, const std::vector<T>& vec2)
 
 namespace VectorAction
 {
+    /**
+     * Multiplication vector by a scalar
+     */
     template<typename T>
     std::vector<T> operator*(const std::vector<T>& vec, const T& sc);
 
-    template<typename T>
-    std::vector<T> operator*(const T& sc, const std::vector<T>& vec);
-
-    //ScalarProduct
+    /**
+     * Scalar product of 2 vectors
+     * @throw std::out_of_range vec1.size() != vec2.size()
+     */
     template<typename T>
     double operator*(const std::vector<T>& vec1, const std::vector<T>& vec2);
 
+    /**
+     * Sum operator of 2 vectors
+     * @throw std::out_of_range vec1.size() != vec2.size()
+     */
     template<typename T>
     std::vector<T> operator+(const std::vector<T>& vec1, const std::vector<T>& vec2);
 
+    /**
+     * Difference operator of 2 vectors
+     * @throw std::out_of_range vec1.size() != vec2.size()
+     */
     template<typename T>
     std::vector<T> operator-(const std::vector<T>& vec1, const std::vector<T>& vec2);
 
+    /**
+     * Negation operator
+     */
     template<typename T>
     std::vector<T> operator-(const std::vector<T>& vec);
 
+    /**
+     * Absolute value of the vector
+     */
     template<typename T>
     double abs(const std::vector<T>& vec);
 
+    /**
+     * Out stream operator to write on std::out and to file
+     */
     template<typename T>
     std::ostream& operator<<(std::ostream& os, const std::vector<T>& vec);
 }   //VectorAction
@@ -60,12 +84,6 @@ std::vector<T> VectorAction::operator*(const std::vector<T>& vec, const T& sc)
     for (auto& i : vec)
         ret.push_back(i * sc);
     return ret;
-}
-
-template<typename T>
-std::vector<T> VectorAction::operator*(const T& sc, const std::vector<T>& vec)
-{
-    return vec * sc;
 }
 
 template<typename T>

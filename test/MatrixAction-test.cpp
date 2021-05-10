@@ -42,7 +42,6 @@ TEST (MatrixActionTest, multiScalar)
     double b = 3;
 
     EXPECT_EQ(a * b, matrix<double>({{3, 6}, {9, 12}}));
-    EXPECT_EQ(b * a, matrix<double>({{3, 6}, {9, 12}}));
 }
 
 TEST (MatrixActionTest, multiVec)

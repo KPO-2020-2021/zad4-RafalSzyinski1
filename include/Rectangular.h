@@ -1,7 +1,13 @@
+/**
+ * @file Rectangular.h
+ * Declaration of Rectangular class
+ */
+
 #ifndef ROTATION_RECTANGULAR_H
 #define ROTATION_RECTANGULAR_H
 
 #include "MatrixAction.h"
+
 
 class Rectangular
 {
